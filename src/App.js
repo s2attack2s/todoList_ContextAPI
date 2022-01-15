@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import React, { useEffect } from "react";
+import listTodo from "./components/db/todoList";
+import ListTodo from "./components/listContextApi/view/listTodo";
+import { editableInputTypes } from "@testing-library/user-event/dist/utils";
+export const ListContext = React.createContext();
 function App() {
+  let dataTodo = listTodo;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ListContext.Provider value={dataTodo}>
+        <ListTodo />
+      </ListContext.Provider>
     </div>
   );
 }
