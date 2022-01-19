@@ -1,31 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { ListContext } from "../../../App";
 import ListDetail from "./listDetail";
 import "../../listContextApi/css/list.css";
 
 function ListTodo() {
-  let listData = useContext(ListContext);
-  let [content, setContent] = useState();
-  let [workDay, setWorkDay] = useState();
-  let [showButton, setButton] = useState(true);
-  let handChangContent = (e) => {
-    content = e.target.value;
-    setContent(content);
-  };
-  let handChangWorkDay = (e) => {
-    workDay = e.target.value;
-    setWorkDay(workDay);
-  };
-  let insertTodo = () => {
-    let newData = {
-      content,
-      workDay,
-    };
-    listData.push(newData);
-    setWorkDay((workDay = ""));
-    setContent((content = ""));
-    setButton((showButton = true));
-  };
+  let {
+    content,
+    workDay,
+    showButton,
+    insertTodo,
+    updateTodo,
+    destroyTodo,
+    handChangContent,
+    handChangWorkDay,
+  } = useContext(ListContext);
 
   let button;
   if (showButton) {
@@ -33,8 +21,8 @@ function ListTodo() {
   } else {
     button = (
       <div>
-        <button onClick={insertTodo}>Cập nhật</button>
-        <button onClick={insertTodo}>Hủy</button>
+        <button onClick={updateTodo}>Cập nhật</button>
+        <button onClick={destroyTodo}>Hủy</button>
       </div>
     );
   }
@@ -60,6 +48,7 @@ function ListTodo() {
         </div>
         <div className="todoGroup">
           <div className="content">Nội dung</div>
+          <div className="workDay">Ngày làm</div>
           <div className="addTime">Ngày tạo</div>
           <div className="setting">Tùy chọn</div>
         </div>
